@@ -1,0 +1,598 @@
+{
+    "PROJECTNAME": "EMPA", 
+    "MAIL_FROM": "admin@checker.sccwrp.org",
+    "MAIL_SERVER": "192.168.1.18",
+    "APP_SCRIPT_ROOT": "checker",
+    "SYSTEM_FIELDS": [
+        "objectid",
+        "original_objectid",
+        "globalid",
+        "created_date",
+        "created_user",
+        "last_edited_date",
+        "last_edited_user",
+        "submissionid",
+        "warnings",
+        "login_email",
+        "gdb_geomattr_data",
+        "shape",
+        "login_agency",
+        "login_siteid",
+        "login_data_entry_year",
+        "login_protocol_version",
+        "login_sensortype",
+        "login_stationno",
+        "login_protocol_name",
+        "login_notes",
+        "login_data_entry_day",
+        "login_sensorid",
+        "login_contact_email_address",
+        "login_data_entry_month",
+        "login_contact_person",
+        "login_projectid",
+        "login_estuaryname",
+        "login_filetype",
+        "login_phone_number",
+        "login_start",
+        "login_project",
+        "login_end",
+        "samplecollectiontimestamp_utc",
+        "raw_depth_qcflag_robot",
+        "raw_pressure_qcflag_robot",
+        "raw_h2otemp_qcflag_robot",
+        "raw_ph_qcflag_robot",
+        "raw_conductivity_qcflag_robot",
+        "raw_turbidity_qcflag_robot",
+        "raw_do_qcflag_robot",
+        "raw_do_pct_qcflag_robot",
+        "raw_salinity_qcflag_robot",
+        "raw_chlorophyll_qcflag_robot",
+        "raw_orp_qcflag_robot",
+        "raw_qvalue_qcflag_robot",
+        "qaqc_comment"
+    ],
+    "EXCEL_OFFSET": 0,
+    "EXCEL_TABS_TO_IGNORE": [
+        "Instructions",
+        "glossary",
+        "Lookup Lists",
+        "Results_Example"
+    ],
+    "MAINTAINERS": [
+        "empa-im@sccwrp.org",
+        "duyn@sccwrp.org",
+        "zaibq@sccwrp.org"
+    ],
+    "comment": "This GLOBAL_LOGIN_FORM does not need to be in the config. it lets the app know though, to make one login form for all datatypes",
+    "DATASETS": {
+        "logger_meta":{
+            "label": "SOP 1 - WQ Logger Metadata (<strong>Metadata only - must be submitted before Raw Logger data</strong>)",
+            "tables": ["tbl_protocol_metadata","tbl_wq_logger_metadata"],
+            "login_fields" : [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "logger_raw":{
+            "label": "SOP 1 - WQ Logger Raw Data",
+            "tables": ["tbl_wq_logger_raw"],
+            "login_fields": [
+                
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "label": "Email Address",
+                    "fieldtype": "input"
+                },
+                {
+                    "fieldname": "phone_number",
+                    "label": "Phone Number",
+                    "fieldtype": "input"
+                },
+                {
+                    "fieldname": "notes",
+                    "label": "Protocol Metadata - Data Entry Notes",
+                    "fieldtype": "input"
+                },
+                {
+                    "fieldname": "protocol_version",
+                    "label": "Protocol Version",
+                    "fieldtype": "input"
+                }, 
+                {
+                    "fieldname": "project",
+                    "label": "Project",
+                    "fieldtype": "select",
+                    "independent": "False",
+                    "sequencenum": 1,
+                    "options_from_table": "tbl_wq_logger_metadata",
+                    "options_display_field": "projectid",
+                    "options_values_field": "projectid"
+                }, 
+                {
+                    "fieldname": "filetype",
+                    "label": "I am submitting a",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "static_options": [
+                        {"value":"raw-file", "label": "Raw File"},
+                        {"value":"formatted-template", "label": "Filled out Formatted Template"}
+                    ]
+                }, 
+                {
+                    "fieldname": "sensortype",
+                    "label": "Type of Logger",
+                    "fieldtype": "select",
+                    "independent": "False",
+                    "sequencenum": 2,
+                    "options_from_table": "tbl_wq_logger_metadata",
+                    "options_display_field": "sensortype",
+                    "options_values_field": "sensortype"
+                }, 
+                {
+                    "fieldname": "siteid",
+                    "label": "Estuary",
+                    "fieldtype": "select",
+                    "independent": "False",
+                    "sequencenum": 3,
+                    "options_from_table": "tbl_wq_logger_metadata",
+                    "options_display_field": "estuaryname",
+                    "options_values_field": "siteid"
+                }, 
+                {
+                    "fieldname": "stationno",
+                    "label": "Station No.",
+                    "fieldtype": "select",
+                    "independent": "False",
+                    "sequencenum": 4,
+                    "options_from_table": "tbl_wq_logger_metadata",
+                    "options_display_field": "stationno",
+                    "options_values_field": "stationno"
+                }, 
+                {
+                    "fieldname": "sensorid",
+                    "label": "Sensor ID",
+                    "fieldtype": "select",
+                    "independent": "False",
+                    "sequencenum": 5,
+                    "options_from_table": "tbl_wq_logger_metadata",
+                    "options_display_field": "sensorid",
+                    "options_values_field": "sensorid"
+                },
+                {
+                    "fieldname": "start",
+                    "label": "Beginning of Period of Sample Collection",
+                    "fieldtype": "select",
+                    "independent": "False",
+                    "sequencenum": 6,
+                    "options_from_table": "tbl_wq_logger_metadata",
+                    "options_display_field": "samplecollectiontimestampstart",
+                    "options_values_field": "samplecollectiontimestampstart"
+                },
+                {
+                    "fieldname": "end",
+                    "label": "End of the Period of Sample Collection",
+                    "fieldtype": "select",
+                    "independent": "False",
+                    "sequencenum": 7,
+                    "options_from_table": "tbl_wq_logger_metadata",
+                    "options_display_field": "samplecollectiontimestampend",
+                    "options_values_field": "samplecollectiontimestampend"
+                }
+            ]
+        },
+        "discretewq":{
+            "label": "SOP 2 - Discrete Water Quality",
+            "tables": ["tbl_protocol_metadata","tbl_waterquality_metadata","tbl_waterquality_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "nutrients_field":{
+            "label": "SOP 3 - Nutrients (Field)",
+            "tables": ["tbl_protocol_metadata","tbl_sedchem_metadata"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "nutrients_lab":{
+            "label": "SOP 3 - Nutrients (Lab)",
+            "tables": ["tbl_protocol_metadata","tbl_sedchem_labbatch_data","tbl_sedchem_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "edna_field":{
+            "label": "SOP 4 - eDNA (Field)",
+            "tables": ["tbl_protocol_metadata","tbl_edna_metadata"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "edna_lab":{
+            "label": "SOP 4 - eDNA (Lab)",
+            "tables": ["tbl_protocol_metadata","tbl_edna_water_labbatch_data","tbl_edna_sed_labbatch_data","tbl_edna_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "sedimentgrainsize_field":{
+            "label": "SOP 5 - Sediment Grain Size (Field)",
+            "tables": ["tbl_protocol_metadata", "tbl_sedgrainsize_metadata"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "sedimentgrainsize_lab":{
+            "label": "SOP 5 - Sediment Grain Size (Lab)",
+            "tables": ["tbl_protocol_metadata", "tbl_sedgrainsize_data", "tbl_sedgrainsize_labbatch_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "benthicinfauna_field":{
+            "label": "SOP 5 - Benthic Infauna (Field)",
+            "tables": ["tbl_protocol_metadata","tbl_benthicinfauna_metadata"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "benthicinfauna_lab":{
+            "label": "SOP 6 - Benthic Infauna (Lab)",
+            "tables": ["tbl_protocol_metadata","tbl_benthicinfauna_labbatch","tbl_benthicinfauna_abundance","tbl_benthicinfauna_biomass"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "sav":{
+            "label": "SOP 7 - Sub Aquatic Vegetation",
+            "tables": ["tbl_protocol_metadata","tbl_sav_metadata","tbl_savpercentcover_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        
+        "macroalgae":{
+            "label": "SOP 7 - Macro Algae",
+            "tables": ["tbl_protocol_metadata","tbl_macroalgae_sample_metadata","tbl_algaecover_data","tbl_floating_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        
+        
+        
+        "bruv_field":{
+            "label": "SOP 8 - BRUV Field",
+            "tables": ["tbl_protocol_metadata","tbl_bruv_metadata"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "bruv_lab":{
+            "label": "SOP 8 - BRUV Lab",
+            "tables": ["tbl_protocol_metadata","tbl_bruv_videolog","tbl_bruv_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "fishseines":{
+            "label": "SOP 9 - Fish Seines",
+            "tables": ["tbl_protocol_metadata","tbl_fish_sample_metadata","tbl_fish_abundance_data","tbl_fish_length_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "crabtrap": {
+            "label": "SOP 10 - Crab Trap",
+            "tables": ["tbl_protocol_metadata","tbl_crabtrap_metadata","tbl_crabfishinvert_abundance","tbl_crabbiomass_length"], 
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "vegetation":{
+            "label": "SOP 11 - Vegetation",
+            "tables": ["tbl_protocol_metadata","tbl_vegetation_sample_metadata","tbl_vegetativecover_data","tbl_epifauna_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+       
+        "feldspar":{
+            "label": "SOP 13 - Feldspar",
+            "tables": ["tbl_protocol_metadata","tbl_feldspar_metadata","tbl_feldspar_data"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "benthiclarge":{
+            "label": "SOP 6 - Benthic Infauna Large",
+            "tables": ["tbl_protocol_metadata","tbl_benthiclarge_metadata","tbl_benthiclarge_abundance"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        },
+        "grab_field":{
+            "label": "SOP 14 - Grab Field",
+            "tables": ["tbl_protocol_metadata","tbl_grabevent","tbl_grabevent_details"],
+            "login_fields": [
+                {
+                    "fieldname": "agency",
+                    "label": "Your Agency",
+                    "fieldtype": "select",
+                    "independent": "True",
+                    "options_from_table": "lu_agency",
+                    "options_display_field": "agencyname",
+                    "options_values_field": "agencycode"
+                },
+                {
+                    "fieldname": "email",
+                    "fieldtype": "input",
+                    "label": "Email Address"
+                }
+            ]
+        }
+
+
+    }    
+}
+
+
+
+
+
+
